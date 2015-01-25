@@ -1,0 +1,106 @@
+---
+output: html_document
+---
+
+# `r html.title`
+
+## Introduction
+
+**Human Activity Recognition** is a research field that is gaining attention.
+This is due to emergence of technology that makes it possible to easily collect
+these kinds of data using *activity trackers*.
+  
+The aim of this analysis is to predict how well users have executed a
+particular exercise. The data used in this document is the
+**Weight Lifting Exercises Dataset** from the [**Human Activity Recognition**
+project](http://groupware.les.inf.puc-rio.br/har).
+
+## Weight Lifting Exercises Dataset
+
+For the purposes of this program, the data is split into two types: the
+training and the test set. Both data are stored into one **csv** each.
+
+## predict.exercise.R
+
+All of the functions described in this document are implemented in the
+[**predict.exercise.R**](predict.exercise.R) file located in this git
+repository.
+
+### Loading the Data
+
+The **csv**'s are first loaded using the *load.data()* function. This function
+calls *read.csv()* and sets the **na.string** so it would treat empty strings
+as NA.
+
+The types of data stored in both sets are similar in most cases, other than the
+training set containing the **classe** variable, and the test set containing
+the **problem_id**.
+
+The **classe** variable pertains to the manner in which the exercise has been
+performed. It contains five value. **Class A** corresponds to the exercise done
+correctly, while the other values correspond to common errors of the exercise.
+It is the goal of this analysis to predict this variable.
+
+### Preprocessing the Data
+
+The dataset also contains metadata on the data gathered. The metadata includes
+the names of the participants, as well as the time and date they were gathered.
+For the purposes of this analysis, we will exclude these variables from the
+prediction.
+
+```{r excluded data}
+excluded.columns
+```
+
+Some data are also a summary of the data gathered for that window. These data
+are discarded for the purposes of this analysis. The data will be NA for most
+data other than those that are of a new window. Preprocessing is done by the
+*preprocess.data()* function.
+
+### Creating the Model
+
+The model is created by the *create.model()* function.
+
+```{r show create model}
+create.model
+```
+
+The function first loads the training data, then preprocesses the data so only
+the relevant data will be left. It will then use the *randomForest()* algorithm
+to create the prediction model, modelling **classe** against all the other
+variables.
+
+### Predicting on the Test Data
+
+The predictions on the test data is done by the *predict.data()* function.
+
+```{r show predict data}
+predict.data
+```
+
+The function loads and preprocesses the test data in the same manner as the
+training data. It will then use the prediciton model passed to it to predict
+the **classe** of the test data.
+
+## Results
+
+### Prediction Model
+
+The generated prediction model had a
+`r (1 - prediction.model$err.rate[nrow(prediction.model$err.rate), 1]) * 100`%
+out-of-bag success rate. The resulting confusion matrix is shown below.
+
+```{r model}
+prediction.model$confusion
+```
+
+### Predictions on the Test Data
+
+The resulting predictions are shown below.
+
+```{r prediction}
+prediction
+```
+
+These predictions are correct, as verified by the course's [submissions page]
+(https://class.coursera.org/predmachlearn-010/assignment).
