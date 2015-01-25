@@ -24,7 +24,6 @@ excluded.columns <- c('X', 'user_name', 'raw_timestamp_part_1',
 #
 input.rmd <- 'predict.exercise.Rmd'
 html.title <- 'Predicting Exercise Execution'
-output.html <- 'index.html'
 
 # pml.write.files()
 # Helper function to write the predicitons into files. Based on the function
@@ -111,10 +110,13 @@ predict.data <- function(prediction.model, test.csv) {
 # parameters:
 #   train.csv, test.csv - the csv's containing the data used for training
 #                         and testing the model, respectively
+#   output.html - the directory to output the writeup to
 #
-create.writeup <- function(train.csv, test.csv) {
+create.writeup <- function(train.csv, test.csv, output.dir) {
     prediction.model <- create.model(train.csv)
     prediction <- predict.data(prediction.model, test.csv)
+    output.html <- file.path(output.dir, 'index.html')
+    dir.create(output.dir, recursive = TRUE)
     sprintf('Preparing a writeup: Using %s to generate %s with title "%s"',
             input.rmd, html.title, output.html)
     knit2html(input.rmd, title = html.title, output = output.html)
@@ -122,8 +124,9 @@ create.writeup <- function(train.csv, test.csv) {
 
 # Main Body
 args <- commandArgs(trailingOnly = TRUE)
-if (length(args) == 2) {
-    create.writeup(args[1], args[2])
+if (length(args) == 3) {
+    create.writeup(args[1], args[2], args[3])
 } else {
-    print('usage: Rscript predict.exercise.R <training csv> <testing csv>')
+    print(paste('usage: Rscript predict.exercise.R <training csv>',
+                '<testing csv> <output directory>'))
 }

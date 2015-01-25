@@ -12,8 +12,8 @@ these kinds of data using *activity trackers*.
   
 The aim of this analysis is to predict how well users have executed a
 particular exercise. The data used in this document is the
-**Weight Lifting Exercises Dataset** from the [**Human Activity Recognition**
-project](http://groupware.les.inf.puc-rio.br/har).
+**Weight Lifting Exercises Dataset** from the [**Human Activity Recognition**]
+(http://groupware.les.inf.puc-rio.br/har) project.
 
 ## Weight Lifting Exercises Dataset
 
@@ -23,8 +23,9 @@ training and the test set. Both data are stored into one **csv** each.
 ## predict.exercise.R
 
 All of the functions described in this document are implemented in the
-[**predict.exercise.R**](predict.exercise.R) file located in this git
-repository.
+[**predict.exercise.R**]
+(https://github.com/ejjarder/predict-exercise/blob/master/predict.exercise.R)
+file.
 
 ### Loading the Data
 
