@@ -13,6 +13,8 @@ require(knitr)        # to generate the report
 
 set.seed(12345)
 
+prediction <- NA
+
 # excluded.columns
 # The columns that will be excluded are metadata for the exercises.
 #
@@ -114,7 +116,7 @@ predict.data <- function(prediction.model, test.csv) {
 #
 create.writeup <- function(train.csv, test.csv, output.dir) {
     prediction.model <- create.model(train.csv)
-    prediction <- predict.data(prediction.model, test.csv)
+    prediction <<- predict.data(prediction.model, test.csv)
     output.html <- file.path(output.dir, 'index.html')
     dir.create(output.dir, recursive = TRUE)
     sprintf('Preparing a writeup: Using %s to generate %s with title "%s"',

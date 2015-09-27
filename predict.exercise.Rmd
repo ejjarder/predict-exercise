@@ -103,5 +103,4 @@ The resulting predictions are shown below.
 prediction
 ```
 
-These predictions are correct, as verified by the course's [submissions page]
-(https://class.coursera.org/predmachlearn-010/assignment).
+These predictions are correct, as verified by the course's submissions page.
